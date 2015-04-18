@@ -33,12 +33,17 @@
             this.btnOpenWordFile = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnExit = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            this.openFileDialog1.Filter = "Word Files|*.doc;*.docx";
+            this.openFileDialog1.Multiselect = true;
+            this.openFileDialog1.Title = "Select one or more Word files";
             // 
             // btnOpenWordFile
             // 
@@ -46,7 +51,7 @@
             this.btnOpenWordFile.Name = "btnOpenWordFile";
             this.btnOpenWordFile.Size = new System.Drawing.Size(103, 23);
             this.btnOpenWordFile.TabIndex = 1;
-            this.btnOpenWordFile.Text = "Open Word File";
+            this.btnOpenWordFile.Text = "Select Word File";
             this.btnOpenWordFile.UseVisualStyleBackColor = true;
             this.btnOpenWordFile.Click += new System.EventHandler(this.btnOpenWordFile_Click);
             // 
@@ -62,7 +67,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(111, 200);
+            this.btnExit.Location = new System.Drawing.Point(111, 204);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(103, 23);
             this.btnExit.TabIndex = 6;
@@ -70,11 +75,42 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 360);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Status:";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(12, 281);
+            this.txtStatus.Multiline = true;
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtStatus.Size = new System.Drawing.Size(310, 128);
+            this.txtStatus.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 265);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Status:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 276);
+            this.ClientSize = new System.Drawing.Size(334, 438);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtStatus);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnOpenWordFile);
@@ -92,6 +128,9 @@
         private System.Windows.Forms.Button btnOpenWordFile;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.Label label2;
     }
 }
 

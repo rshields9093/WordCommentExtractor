@@ -4,42 +4,48 @@ using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 using Excel = Microsoft.Office.Interop.Excel;
 
+//TODO Refactor into several discrete methods
+//TODO Add a progress bar
+//Open Word docs in readonly (to prevent warning if the file is already open and locked)
+
 namespace WordCommentExtractor
 {
     public partial class Form1 : Form
-    {
-        //TODO Refactor such that open file dialog closes sooner
-        //TODO Refactor into several discrete methods
-        //TODO Study proper program flow for a project like this (i.e. main is hardly used)
+    {        
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        private void Form1_Load(object sender, EventArgs e) {
+            txtStatus.Text = "Waiting for user to select some Word files...";
         }
 
         private void btnOpenWordFile_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Title = "Select Word Document";
-            openFileDialog1.Filter = "All files (*.*)|*.*";
-            openFileDialog1.Multiselect = false;
-            openFileDialog1.ShowDialog();           
-        }
+            //Open file dialog and store the returned value
+            DialogResult result = openFileDialog1.ShowDialog();
+            
+            //If Open Button was pressed
+            if (result == DialogResult.OK)
+            {
+                foreach (var item in openFileDialog1.FileNames)
+                {
+                    GetComments(item);
+                }
+            }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            GetComments(openFileDialog1.FileName);
+            txtStatus.AppendText("\r\nFinished processing all Word Files.");
+            txtStatus.AppendText("\r\nYou may exit now or select more Word Files.");
+            this.Activate();                       
         }
 
         private void GetComments(string file)
         {
-            object misValue = System.Reflection.Missing.Value;
 
+            txtStatus.AppendText("\r\nOpening Word file: " + file);
             //open Word document and get Comments collection
-            Word.Application winword = new Word.Application(); //New instance Word
+            Word.Application winword = new Word.Application(); //New instance of Word
             Word.Document doc = winword.Documents.Open(file); //Open the document and get reference to it
             winword.Visible = false;
             winword.WindowState = Word.WdWindowState.wdWindowStateMinimize;
@@ -47,11 +53,9 @@ namespace WordCommentExtractor
 
             //check if there are any comments in the Comments collection
             if (comments.Count == 0) {
-                string msg = "There were no comments found in this Word document.  You may open another Word file or simply exit the program.";
-                DialogResult result = MessageBox.Show(msg,"Notice!",MessageBoxButtons.OK);
+                txtStatus.AppendText("\r\nNOTE: There were no comments found in " + file + ". Moving on to next file (if any).");
                 winword.ActiveDocument.Close();
                 winword.Quit();
-
                 return;
             }
 
@@ -68,6 +72,7 @@ namespace WordCommentExtractor
             arrData[0, 4] = "Comments";
 
             //iterate through all comments and fill in the rest of the array
+            txtStatus.AppendText("\r\nProcessing comments in " + file);
             int row = 1;
             foreach (Microsoft.Office.Interop.Word.Comment comment in comments)
             {
@@ -84,13 +89,16 @@ namespace WordCommentExtractor
                 arrData[row, 3] = pageNumber;
                 arrData[row, 4] = commentText;
 
-                row++;   
+                row++;
+
             }
+            txtStatus.AppendText("\r\nFinished processing all comments in " + file);
 
             winword.ActiveDocument.Close();
             winword.Quit();
             
             //open new Excel Spreadsheet
+            txtStatus.AppendText("\r\nCreating new Excel file...");
             Excel.Application xlApp = new Excel.Application(); //new instance of Excel
             xlApp.DisplayAlerts = false;
             xlApp.Visible = false;
@@ -102,6 +110,7 @@ namespace WordCommentExtractor
             Excel.Worksheet xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1); //New Worksheet
             xlWorkSheet.Name = "CANES SW2 Doc Reviews";
 
+            txtStatus.AppendText("Formatting Excel spreadsheet...");
             //format cells
             ((Excel.Range)xlWorkSheet.Cells[1,1]).EntireColumn.ColumnWidth = 17;
             ((Excel.Range)xlWorkSheet.Cells[1,2]).EntireColumn.ColumnWidth = 25;
@@ -124,7 +133,8 @@ namespace WordCommentExtractor
             var startCell = (Excel.Range)xlWorkSheet.Cells[1,1]; //set beginning of range
             var endCell = (Excel.Range)xlWorkSheet.Cells[numRows,numCols]; //set end of range
             var writeRange = xlWorkSheet.Range[startCell,endCell]; //set the area to write to
-            
+
+            txtStatus.AppendText("\r\nWriting comments to spreadsheet");
             //write array to Excel
             writeRange.WrapText = true;
             writeRange.Value2 = arrData;  //write the array to the Excel worksheet 
@@ -134,13 +144,13 @@ namespace WordCommentExtractor
             xlApp.WindowState = Excel.XlWindowState.xlMaximized;
             xlApp.ActiveWindow.Activate();
             xlWorkBook.Saved = false;
-                       
-            this.Activate();
+            
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
     }
 }
