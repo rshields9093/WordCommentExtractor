@@ -6,7 +6,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 //TODO Refactor into several discrete methods
 //TODO Add a progress bar
-//Open Word docs in readonly (to prevent warning if the file is already open and locked)
+//TODO Open Word docs in readonly (to prevent warning if the file is already open and locked)
 
 namespace WordCommentExtractor
 {
