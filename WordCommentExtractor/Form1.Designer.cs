@@ -35,7 +35,6 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -47,7 +46,7 @@
             // 
             // btnOpenWordFile
             // 
-            this.btnOpenWordFile.Location = new System.Drawing.Point(111, 156);
+            this.btnOpenWordFile.Location = new System.Drawing.Point(67, 161);
             this.btnOpenWordFile.Name = "btnOpenWordFile";
             this.btnOpenWordFile.Size = new System.Drawing.Size(103, 23);
             this.btnOpenWordFile.TabIndex = 1;
@@ -57,7 +56,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(66, 12);
+            this.textBox1.Location = new System.Drawing.Point(21, 9);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -67,7 +66,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(111, 204);
+            this.btnExit.Location = new System.Drawing.Point(67, 225);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(103, 23);
             this.btnExit.TabIndex = 6;
@@ -78,7 +77,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 360);
+            this.label1.Location = new System.Drawing.Point(242, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 11;
@@ -86,29 +85,19 @@
             // 
             // txtStatus
             // 
-            this.txtStatus.Location = new System.Drawing.Point(12, 281);
+            this.txtStatus.Location = new System.Drawing.Point(245, 34);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
             this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtStatus.Size = new System.Drawing.Size(310, 128);
+            this.txtStatus.Size = new System.Drawing.Size(656, 258);
             this.txtStatus.TabIndex = 12;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 265);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Status:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 438);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(925, 322);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
@@ -130,7 +119,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtStatus;
-        private System.Windows.Forms.Label label2;
     }
 }
 
